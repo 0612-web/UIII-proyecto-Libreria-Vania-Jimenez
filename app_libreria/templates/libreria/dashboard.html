@@ -1,0 +1,89 @@
+{% extends "app_libreria/base.html" %}
+
+{% block content %}
+
+<!-- SECCIÓN DE BIENVENIDA CON IMAGEN AL LADO -->
+<div class="row align-items-center mb-5">
+    <!-- Texto a la izquierda -->
+    <div class="col-md-7">
+        <h1 class="display-4 fw-bold" style="color: #ff6b6b;">¡Hola, {{ user.username }}! <br>Bienvenido a casa.</h1>
+        <p class="lead mt-3 text-muted">
+            Sumérgete en un océano de historias. Desde los clásicos de la historia hasta la poesía más conmovedora.
+            Tenemos el libro perfecto esperando por ti.
+        </p>
+        <div class="mt-4">
+            <span class="badge bg-warning text-dark p-2 me-2">📚 +30 Libros nuevos</span>
+            <span class="badge bg-info text-dark p-2">🚚 Envíos gratis</span>
+        </div>
+    </div>
+    
+    <!-- Imagen a la derecha (Ejemplo visual) -->
+    <div class="col-md-5 text-center d-none d-md-block">
+        <!-- Usamos una imagen vectorial bonita de libros -->
+        <img src="https://cdn-icons-png.flaticon.com/512/3389/3389081.png" 
+             alt="Libros Ilustración" 
+             class="img-fluid" 
+             style="max-height: 250px; filter: drop-shadow(0px 10px 20px rgba(0,0,0,0.1)); animation: float 6s ease-in-out infinite;">
+    </div>
+</div>
+
+<hr class="my-5" style="opacity: 0.1;">
+
+<!-- Título Categorías -->
+<div class="text-center mb-5">
+    <h2 class="fw-bold" style="color: #2d3436;">Explora nuestras colecciones</h2>
+    <p class="text-muted">Selecciona tu género favorito para empezar</p>
+</div>
+
+<!-- Tarjetas de Categorías -->
+<div class="row justify-content-center">
+    {% for cat in categorias %}
+    <div class="col-md-4 mb-4">
+        <div class="card h-100 border-0 shadow-sm category-card text-center" style="border-radius: 20px; transition: 0.3s; background-color: #fffaf0;">
+            <div class="card-body p-4 d-flex flex-column align-items-center">
+                
+                <!-- Imagen/Icono representativo para cada categoría -->
+                <div class="mb-3 p-3 rounded-circle" style="background-color: white; width: 80px; height: 80px; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 10px rgba(0,0,0,0.05);">
+                    {% if "Poesía" in cat.nombre %} 
+                        <span style="font-size: 2.5rem;">✒️</span>
+                    {% elif "Novela" in cat.nombre %} 
+                        <span style="font-size: 2.5rem;">📖</span>
+                    {% elif "Historia" in cat.nombre %} 
+                        <span style="font-size: 2.5rem;">🏛️</span>
+                    {% else %} 
+                        <span style="font-size: 2.5rem;">✨</span>
+                    {% endif %}
+                </div>
+
+                <h3 class="card-title fw-bold" style="color: #ff6b6b;">{{ cat.nombre }}</h3>
+                <p class="card-text text-muted small flex-grow-1">
+                    {% if "Poesía" in cat.nombre %} Versos que tocan el alma.{% endif %}
+                    {% if "Novela" in cat.nombre %} Historias que no podrás soltar.{% endif %}
+                    {% if "Historia" in cat.nombre %} Viaja a través del tiempo.{% endif %}
+                </p>
+                
+                <a href="{% url 'libros_por_categoria' cat.id %}" class="btn btn-outline-dark rounded-pill px-4 mt-3 fw-bold" style="border-width: 2px;">
+                    Ver Colección →
+                </a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+<!-- Animación flotante CSS -->
+<style>
+    @keyframes float {
+        0% { transform: translateY(0px); }
+        50% { transform: translateY(-15px); }
+        100% { transform: translateY(0px); }
+    }
+    
+    .category-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 30px rgba(255, 107, 107, 0.2) !important;
+        background-color: white !important;
+    }
+</style>
+
+{% endblock %}

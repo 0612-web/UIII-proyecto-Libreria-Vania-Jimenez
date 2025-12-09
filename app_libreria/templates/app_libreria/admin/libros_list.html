@@ -1,0 +1,47 @@
+{% extends 'app_libreria/admin/admin_base.html' %}
+
+{% block content %}
+    <h2><i class="fas fa-book"></i> Gestión de Libros</h2>
+    
+    <div style="margin-bottom: 20px;">
+        <a href="{% url 'admin_libros_create' %}" class="btn btn-primary">
+            <i class="fas fa-plus"></i> Añadir Nuevo Libro
+        </a>
+    </div>
+
+    <table class="table-admin">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Título</th>
+                <th>Autor</th>
+                <th>Categoría</th>
+                <th>Precio</th>
+                <th>Stock</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for libro in object_list %}
+            <tr>
+                <td>{{ libro.pk }}</td>
+                <td>{{ libro.titulo }}</td>
+                <td>{{ libro.autor }}</td>
+                <td>{{ libro.categoria.nombre }}</td>
+                <td>${{ libro.precio|floatformat:2 }}</td>
+                <td>
+                    {% if libro.inventario %}
+                        {{ libro.inventario.cantidad }}
+                    {% else %}
+                        N/A
+                    {% endif %}
+                </td>
+                <td>
+                    <a href="{% url 'admin_libros_edit' libro.pk %}" class="btn btn-sm btn-warning">Editar</a>
+                    <a href="{% url 'admin_libros_delete' libro.pk %}" class="btn btn-sm btn-danger">Eliminar</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock content %}

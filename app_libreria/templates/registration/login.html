@@ -1,0 +1,63 @@
+{% extends "app_libreria/base.html" %}
+
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center align-items-center" style="min-height: 80vh;">
+        <div class="col-md-5 col-lg-4">
+            
+            <!-- Tarjeta de Login -->
+            <div class="card shadow-lg border-0" style="border-radius: 20px; overflow: hidden;">
+                
+                <!-- Encabezado Rosa -->
+                <div class="card-header text-center py-4" style="background-color: #ff85a2; border-bottom: none;">
+                    <h3 class="mb-0 fw-bold text-white">¡Bienvenido! 👋</h3>
+                </div>
+
+                <!-- Cuerpo del Formulario -->
+                <div class="card-body p-5 bg-white">
+                    
+                    <!-- Mensaje de error si falla la contraseña -->
+                    {% if form.errors %}
+                        <div class="alert alert-danger text-center p-2 mb-4" role="alert" style="border-radius: 10px; font-size: 0.9rem;">
+                            Usuario o contraseña incorrectos
+                        </div>
+                    {% endif %}
+
+                    <form method="post" action="{% url 'login' %}">
+                        {% csrf_token %}
+                        
+                        <div class="mb-4">
+                            <label for="id_username" class="form-label fw-bold" style="color: #c9184a;">Usuario</label>
+                            <input type="text" name="username" class="form-control form-control-lg" 
+                                placeholder="Escribe tu usuario" required 
+                                style="border-radius: 15px; background-color: #fff0f3; border: 1px solid #ffccd5;">
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="id_password" class="form-label fw-bold" style="color: #c9184a;">Contraseña</label>
+                            <input type="password" name="password" class="form-control form-control-lg" 
+                                placeholder="••••••••" required 
+                                style="border-radius: 15px; background-color: #fff0f3; border: 1px solid #ffccd5;">
+                        </div>
+
+                        <button type="submit" class="btn w-100 py-3 fw-bold fs-5 shadow-sm" 
+                                style="background-color: #c9184a; color: white; border-radius: 50px; transition: 0.3s;">
+                            Iniciar Sesión 💖
+                        </button>
+                    </form>
+
+                    <div class="text-center mt-4">
+                        <p class="text-muted small mb-1">¿Aún no tienes cuenta?</p>
+                        <a href="{% url 'registro' %}" class="fw-bold" style="color: #ff85a2; text-decoration: none;">
+                            Regístrate aquí gratis
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+            <!-- Fin Tarjeta -->
+
+        </div>
+    </div>
+</div>
+{% endblock %}

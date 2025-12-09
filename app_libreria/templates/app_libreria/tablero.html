@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="text-center mb-5">
+    <h1 class="display-4 fw-bold" style="color: var(--dark-pink);">¡Bienvenido a tu Mundo de Lectura!</h1>
+    <p class="lead">Explora nuestras colecciones seleccionadas especialmente para ti.</p>
+</div>
+
+<h3 class="mb-4" style="color: #4a4a4a;">Nuestras Categorías</h3>
+<div class="row">
+    {% for cat in categorias %}
+    <div class="col-md-4 mb-4">
+        <div class="card card-libro text-center p-5">
+            <h2 class="fw-bold">{{ cat.nombre }}</h2>
+            <p>Descubre los 10 mejores libros de {{ cat.nombre }}</p>
+            <a href="{% url 'libros_por_categoria' cat.id %}" class="btn btn-rosa">Ver Libros</a>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

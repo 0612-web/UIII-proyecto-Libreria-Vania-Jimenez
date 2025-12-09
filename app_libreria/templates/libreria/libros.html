@@ -1,0 +1,76 @@
+{% extends "app_libreria/base.html" %}
+
+{% block content %}
+
+<!-- Encabezado de la Categoría -->
+<div class="text-center mb-5">
+    <span class="badge rounded-pill text-bg-warning text-uppercase px-3 py-2 mb-2">Explorando</span>
+    <h1 class="fw-bold display-5" style="color: #ff6b6b;">{{ categoria.nombre }}</h1>
+    <p class="text-muted">Descubre nuestra selección especial</p>
+    <a href="{% url 'dashboard' %}" class="btn btn-outline-secondary btn-sm rounded-pill px-3 mt-2">
+        ← Regresar al inicio
+    </a>
+</div>
+
+<!-- Grid de Libros -->
+<div class="row">
+    {% if libros %}
+        {% for libro in libros %}
+        <div class="col-md-6 col-lg-4 mb-4">
+            <div class="card h-100 border-0 shadow-sm book-card" style="border-radius: 20px; overflow: hidden; transition: 0.3s;">
+                <div class="row g-0 h-100">
+                    <!-- Imagen del libro -->
+                    <div class="col-4 d-flex align-items-center justify-content-center bg-light" style="overflow: hidden;">
+                        {% if libro.imagen_url %}
+                            <img src="{{ libro.imagen_url }}" class="img-fluid" alt="{{ libro.titulo }}" style="height: 100%; object-fit: cover;">
+                        {% else %}
+                            <!-- Placeholder si no hay imagen -->
+                            <div class="text-center text-muted p-2">
+                                <span style="font-size: 2rem;">📕</span>
+                            </div>
+                        {% endif %}
+                    </div>
+                    
+                    <!-- Información del libro -->
+                    <div class="col-8">
+                        <div class="card-body d-flex flex-column h-100 p-3">
+                            <h5 class="card-title fw-bold mb-1" style="font-size: 1rem; color: #2d3436;">{{ libro.titulo }}</h5>
+                            <p class="card-text text-muted small fst-italic mb-2">{{ libro.autor }}</p>
+                            
+                            <p class="card-text small text-secondary flex-grow-1" style="font-size: 0.85rem;">
+                                {{ libro.descripcion|truncatechars:60 }}
+                            </p>
+                            
+                            <div class="d-flex justify-content-between align-items-end mt-2">
+                                <span class="fw-bold fs-5" style="color: #ff6b6b;">${{ libro.precio }}</span>
+                                
+                                <a href="{% url 'agregar_carrito' libro.id %}" class="btn btn-calido btn-sm rounded-pill px-3 shadow-sm">
+                                    Agregar +
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    {% else %}
+        <!-- Mensaje si no hay libros en esta categoría -->
+        <div class="col-12 text-center py-5">
+            <div style="font-size: 4rem;">🧐</div>
+            <h3 class="text-muted mt-3">Aún no hay libros en esta categoría</h3>
+            <p>Vuelve pronto, estamos rellenando los estantes.</p>
+            <a href="{% url 'dashboard' %}" class="btn btn-calido rounded-pill">Ver otras categorías</a>
+        </div>
+    {% endif %}
+</div>
+
+<!-- Estilos extra para hover -->
+<style>
+    .book-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 25px rgba(255, 107, 107, 0.15) !important;
+    }
+</style>
+
+{% endblock %}

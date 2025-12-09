@@ -1,0 +1,89 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin | Sistema de Librería</title>
+    <link rel="stylesheet" href="{% static 'css/admin_panel.css' %}"> <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        /* CSS BÁSICO PARA EL LAYOUT DE ADMIN */
+        body { margin: 0; display: flex; font-family: sans-serif; }
+        #sidebar { 
+            width: 250px; 
+            background-color: #343a40; 
+            color: white; 
+            padding: 20px; 
+            min-height: 100vh;
+        }
+        #content { flex-grow: 1; padding: 20px; }
+        .sidebar-menu a {
+            display: block;
+            color: #ccc;
+            padding: 10px 0;
+            text-decoration: none;
+            border-bottom: 1px solid #495057;
+        }
+        .sidebar-menu a:hover {
+            color: white;
+            background-color: #495057;
+        }
+        h3 { color: #f8f9fa; margin-top: 20px; }
+    </style>
+</head>
+<body>
+    <div id="sidebar">
+        <h2><i class="fas fa-cogs"></i> Panel Admin</h2>
+        <p>Bienvenido, **{{ user.username }}**</p>
+        
+        <hr style="border-color: #495057;">
+
+        <div class="sidebar-menu">
+            <a href="{% url 'admin_dashboard' %}">
+                <i class="fas fa-tachometer-alt"></i> Dashboard
+            </a>
+            
+            <h3>Catálogo y Stock</h3>
+            <a href="{% url 'admin_libros_list' %}">
+                <i class="fas fa-book"></i> Gestión de Libros
+            </a>
+            <a href="{% url 'admin_inventario_list' %}">
+                <i class="fas fa-warehouse"></i> Inventario
+            </a>
+            <a href="{% url 'admin_categorias_list' %}">
+                <i class="fas fa-tag"></i> Categorías
+            </a>
+            
+            <h3>Transacciones</h3>
+            <a href="{% url 'admin_pedidos_list' %}">
+                <i class="fas fa-shopping-cart"></i> Pedidos (Compras)
+            </a>
+            <a href="{% url 'admin_proveedores_list' %}">
+                <i class="fas fa-truck"></i> Proveedores
+            </a>
+
+            <h3>Usuarios</h3>
+            <a href="{% url 'lista_usuarios' %}">
+                <i class="fas fa-users"></i> Usuarios Registrados
+            </a>
+            
+            <hr style="border-color: #495057;">
+            
+            <h3>Navegación</h3>
+            <a href="{% url 'inicio' %}" 
+               style="background-color: #007bff; color: white; padding: 10px 15px; border-radius: 5px; text-align: center; margin-top: 10px; border: none; font-weight: bold;">
+                <i class="fas fa-home"></i> Ir a la Página Web (Home)
+            </a>
+            
+            <a href="{% url 'logout' %}" style="color: #dc3545; padding: 10px 0;">
+                <i class="fas fa-sign-out-alt"></i> Cerrar Sesión
+            </a>
+            </div>
+    </div>
+
+    <div id="content">
+        {% block content %}
+        {% endblock content %}
+    </div>
+</body>
+</html>

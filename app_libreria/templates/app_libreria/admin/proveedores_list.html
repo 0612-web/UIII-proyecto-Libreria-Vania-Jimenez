@@ -1,0 +1,37 @@
+{% extends 'app_libreria/admin/admin_base.html' %}
+
+{% block content %}
+    <h2><i class="fas fa-truck"></i> Gestión de Proveedores</h2>
+    
+    <div style="margin-bottom: 20px;">
+        <a href="{% url 'admin_proveedores_create' %}" class="btn btn-primary">
+            <i class="fas fa-plus"></i> Añadir Proveedor
+        </a>
+    </div>
+    
+    <table class="table-admin">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Contacto</th>
+                <th>Teléfono</th>
+                <th>Email</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for proveedor in object_list %}
+            <tr>
+                <td>{{ proveedor.nombre }}</td>
+                <td>{{ proveedor.contacto }}</td>
+                <td>{{ proveedor.telefono }}</td>
+                <td>{{ proveedor.email }}</td>
+                <td>
+                    <a href="{% url 'admin_proveedores_edit' proveedor.pk %}" class="btn btn-sm btn-warning">Editar</a>
+                    <a href="{% url 'admin_proveedores_delete' proveedor.pk %}" class="btn btn-sm btn-danger">Eliminar</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock content %}

@@ -1,0 +1,40 @@
+{% extends 'app_libreria/admin/admin_base.html' %}
+
+{% block content %}
+    <h2><i class="fas fa-warehouse"></i> Inventario y Stock</h2>
+    
+    <table class="table-admin">
+        <thead>
+            <tr>
+                <th>Libro</th>
+                <th>Stock Actual</th>
+                <th>Stock Mínimo</th>
+                <th>Estado</th>
+                <th>Última Actualización</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in object_list %}
+            <tr>
+                <td>{{ item.libro.titulo }}</td>
+                <td style="font-weight: bold; color: {% if item.cantidad <= item.stock_minimo %}red{% else %}green{% endif %};">
+                    {{ item.cantidad }}
+                </td>
+                <td>{{ item.stock_minimo }}</td>
+                <td>
+                    {% if item.cantidad <= item.stock_minimo %}
+                        **¡Bajo Stock!**
+                    {% else %}
+                        Normal
+                    {% endif %}
+                </td>
+                <td>{{ item.ultima_actualizacion|date:"d M H:i" }}</td>
+                <td>
+                    <a href="{% url 'admin_inventario_edit' item.pk %}" class="btn btn-sm btn-warning">Ajustar Stock</a>
+                    </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock content %}

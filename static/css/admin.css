@@ -1,0 +1,56 @@
+/* static/css/admin.css */
+/* Estilos específicos para el panel de administración */
+
+/* Tarjetas de estadísticas */
+.card-border-left-primary {
+    border-left: 0.25rem solid #4e73df !important;
+}
+
+.card-border-left-success {
+    border-left: 0.25rem solid #1cc88a !important;
+}
+
+.card-border-left-info {
+    border-left: 0.25rem solid #36b9cc !important;
+}
+
+.card-border-left-warning {
+    border-left: 0.25rem solid #f6c23e !important;
+}
+
+/* Sombras y efectos */
+.shadow {
+    box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.15) !important;
+}
+
+/* Tablas */
+.table th {
+    font-weight: 600;
+    color: #5a5c69;
+}
+
+/* Badges personalizados */
+.badge-admin {
+    background-color: #e74a3b;
+    color: white;
+}
+
+.badge-staff {
+    background-color: #f6c23e;
+    color: #000;
+}
+
+/* Botones de acción */
+.btn-action {
+    width: 30px;
+    height: 30px;
+    padding: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Listas */
+.list-group-item-action:hover {
+    background-color: #f8f9fc;
+}

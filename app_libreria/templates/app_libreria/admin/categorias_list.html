@@ -1,0 +1,39 @@
+{% extends 'app_libreria/admin/admin_base.html' %}
+
+{% block content %}
+    <h2><i class="fas fa-tag"></i> Gestión de Categorías</h2>
+    
+    <div style="margin-bottom: 20px;">
+        <a href="{% url 'admin_categorias_create' %}" class="btn btn-primary">
+            <i class="fas fa-plus"></i> Añadir Nueva Categoría
+        </a>
+    </div>
+    
+    <table class="table-admin">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Descripción</th>
+                <th>Color de Muestra</th>
+                <th>Libros Asociados</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for categoria in object_list %}
+            <tr>
+                <td>{{ categoria.pk }}</td>
+                <td>{{ categoria.nombre }}</td>
+                <td>{{ categoria.descripcion|truncatechars:80 }}</td>
+                <td><span style="display: inline-block; width: 50px; height: 20px; background-color: {{ categoria.color }}; border: 1px solid #ccc;"></span></td>
+                <td>{{ categoria.libro_set.count }}</td>
+                <td>
+                    <a href="{% url 'admin_categorias_edit' categoria.pk %}" class="btn btn-sm btn-warning">Editar</a>
+                    <a href="{% url 'admin_categorias_delete' categoria.pk %}" class="btn btn-sm btn-danger">Eliminar</a> 
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock content %}

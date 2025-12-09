@@ -1,0 +1,33 @@
+{% extends 'app_libreria/admin/admin_base.html' %}
+
+{% block content %}
+    <h2><i class="fas fa-shopping-cart"></i> Gestión de Pedidos (Compras)</h2>
+    
+    <table class="table-admin">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Usuario</th>
+                <th>Fecha</th>
+                <th>Dirección de Envío</th>
+                <th>Total</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for pedido in object_list %}
+            <tr>
+                <td>{{ pedido.pk }}</td>
+                <td>{{ pedido.usuario.username }}</td>
+                <td>{{ pedido.fecha|date:"d M Y H:i" }}</td>
+                <td>{{ pedido.direccion|truncatechars:50 }}</td>
+                <td>**${{ pedido.total|floatformat:2 }}**</td>
+                <td>
+                    <a href="{% url 'admin_pedidos_edit' pedido.pk %}" class="btn btn-sm btn-warning">Detalles/Editar</a>
+                    <a href="{% url 'admin_pedidos_delete' pedido.pk %}" class="btn btn-sm btn-danger">Eliminar</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock content %}

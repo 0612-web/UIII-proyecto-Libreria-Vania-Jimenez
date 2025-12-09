@@ -1,0 +1,48 @@
+{% extends "app_libreria/base.html" %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card shadow-lg border-0" style="border-radius: 20px;">
+            <div class="card-header text-center py-3" style="background-color: #ff9a9e; color: white;">
+                <h4 class="mb-0 fw-bold">Añadir Nuevo Usuario</h4>
+            </div>
+            <div class="card-body p-5">
+                <form method="post">
+                    {% csrf_token %}
+                    
+                    <!-- Renderizado manual bonito -->
+                    {% for field in form %}
+                    <div class="mb-3">
+                        <label class="form-label fw-bold text-muted">{{ field.label }}</label>
+                        <div class="input-group">
+                            {{ field }}
+                        </div>
+                        {% if field.help_text %}
+                            <small class="text-muted">{{ field.help_text }}</small>
+                        {% endif %}
+                        {% for error in field.errors %}
+                            <div class="text-danger small">{{ error }}</div>
+                        {% endfor %}
+                    </div>
+                    {% endfor %}
+
+                    <div class="d-flex gap-2 mt-4">
+                        <a href="{% url 'lista_usuarios' %}" class="btn btn-outline-secondary w-50 rounded-pill">Cancelar</a>
+                        <button type="submit" class="btn btn-calido w-50 rounded-pill fw-bold">Guardar Usuario</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    input {
+        width: 100%;
+        padding: 8px;
+        border: 1px solid #ddd;
+        border-radius: 10px;
+    }
+</style>
+{% endblock %}

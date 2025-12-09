@@ -1,0 +1,19 @@
+{% extends 'app_libreria/admin/admin_base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+    <h2>
+        <i class="fas fa-book"></i> 
+        {% if form.instance.pk %}Editar Libro: {{ form.instance.titulo }}{% else %}Crear Nuevo Libro{% endif %}
+    </h2>
+    
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form|crispy }}
+        
+        <button type="submit" class="btn btn-success">
+            <i class="fas fa-save"></i> Guardar
+        </button>
+        <a href="{% url 'admin_libros_list' %}" class="btn btn-secondary">Cancelar</a>
+    </form>
+{% endblock content %}

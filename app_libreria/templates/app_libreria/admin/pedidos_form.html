@@ -1,0 +1,18 @@
+{% extends 'app_libreria/admin/admin_base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+    <h2><i class="fas fa-edit"></i> Editar Pedido #{{ form.instance.pk }}</h2>
+    
+    <p>Usuario: **{{ form.instance.usuario.username }}** | Total: **${{ form.instance.total|floatformat:2 }}**</p>
+    
+    <form method="post">
+        {% csrf_token %}
+        {{ form|crispy }} 
+        
+        <button type="submit" class="btn btn-success">
+            <i class="fas fa-save"></i> Guardar Cambios
+        </button>
+        <a href="{% url 'admin_pedidos_list' %}" class="btn btn-secondary">Cancelar</a>
+    </form>
+{% endblock content %}
